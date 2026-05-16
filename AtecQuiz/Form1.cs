@@ -16,7 +16,6 @@ namespace AtecQuiz
         private string playerName;
         private Button selectedAnswerButton;
         private Question currentQuestion;
-        private bool answerSubmitted;
 
         public Form1()
         {
@@ -65,7 +64,6 @@ namespace AtecQuiz
             score = 0;
             currentQuestionIndex = 0;
             currentGameQuestions = new List<Question>();
-            answerSubmitted = false;
 
             // Load 5 random questions for level 1
             LoadNextLevel();
@@ -92,7 +90,6 @@ namespace AtecQuiz
             if (currentQuestionIndex < currentGameQuestions.Count)
             {
                 currentQuestion = currentGameQuestions[currentQuestionIndex];
-                answerSubmitted = false;
                 selectedAnswerButton = null;
 
                 lblQuestion.Text = currentQuestion.Text;
@@ -147,9 +144,6 @@ namespace AtecQuiz
 
         private void btnAnswer_Click(object sender, EventArgs e)
         {
-            if (answerSubmitted)
-                return;
-
             Button clickedButton = (Button)sender;
 
             // Remove previous selection highlighting
@@ -173,8 +167,6 @@ namespace AtecQuiz
                 MessageBox.Show("Por favor, selecione uma resposta!");
                 return;
             }
-
-            answerSubmitted = true;
 
             // Find which button was clicked
             Button[] buttons = { btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4 };
@@ -304,7 +296,7 @@ namespace AtecQuiz
 
         private void btnAnswer_MouseEnter(object sender, EventArgs e)
         {
-            if (!answerSubmitted && selectedAnswerButton != (Button)sender)
+            if (selectedAnswerButton != (Button)sender)
             {
                 ((Button)sender).BackColor = Color.FromArgb(127, 140, 141);
             }
@@ -312,7 +304,7 @@ namespace AtecQuiz
 
         private void btnAnswer_MouseLeave(object sender, EventArgs e)
         {
-            if (!answerSubmitted && selectedAnswerButton != (Button)sender)
+            if (selectedAnswerButton != (Button)sender)
             {
                 ((Button)sender).BackColor = Color.FromArgb(149, 165, 166);
             }
