@@ -16,6 +16,7 @@ namespace AtecQuiz
         private string playerName;
         private Button selectedAnswerButton;
         private Question currentQuestion;
+        private bool answerSubmitted;
 
         public Form1()
         {
@@ -29,6 +30,7 @@ namespace AtecQuiz
             try
             {
                 quizManager.LoadQuestionsFromXml("quiz.xml");
+                selectedCategory = "Mix"; // Default category
                 LoadCategories();
             }
             catch (Exception ex)
@@ -40,39 +42,103 @@ namespace AtecQuiz
         private void LoadCategories()
         {
             List<string> categories = quizManager.GetCategories();
-            comboBoxCategory.Items.Clear();
-            comboBoxCategory.Items.Add("Mix");
+            flowLayoutPanelCategories.Controls.Clear();
+
+            CreateCategoryButton("Mix");
+
             foreach (string category in categories)
             {
-                comboBoxCategory.Items.Add(category);
+                CreateCategoryButton(category);
             }
-            comboBoxCategory.SelectedIndex = 0;
+        }
+
+        private void CreateCategoryButton(string categoryName)
+        {
+            Button btn = new Button();
+            btn.Text = categoryName;
+            btn.Width = 300;
+            btn.Height = 80;
+            btn.Font = new Font("Arial", 14F, FontStyle.Bold);
+            btn.BackColor = Color.RoyalBlue;
+            btn.ForeColor = Color.White;
+            btn.Margin = new Padding(15);
+            btn.Tag = categoryName;
+            btn.AutoSize = false;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            btn.Click += CategoryButton_Click;
+            btn.MouseEnter += CategoryButton_MouseEnter;
+            btn.MouseLeave += CategoryButton_MouseLeave;
+
+            flowLayoutPanelCategories.Controls.Add(btn);
+        }
+
+        private void CategoryButton_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            selectedCategory = btn.Tag.ToString();
+
+            // Highlight selected button
+            foreach (Control control in flowLayoutPanelCategories.Controls)
+            {
+                if (control is Button button)
+                {
+                    if (button == btn)
+                    {
+                        button.BackColor = Color.FromArgb(230, 126, 34);
+                    }
+                    else
+                    {
+                        button.BackColor = Color.RoyalBlue;
+                    }
+                }
+            }
+        }
+
+        private void CategoryButton_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn.Tag.ToString() != selectedCategory)
+            {
+                btn.BackColor = Color.FromArgb(41, 128, 185);
+            }
+        }
+
+        private void CategoryButton_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            if (btn.Tag.ToString() != selectedCategory)
+            {
+                btn.BackColor = Color.RoyalBlue;
+            }
         }
 
         private void BtnStartGame_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtPlayerName.Text))
-            {
-                MessageBox.Show("Por favor, insira o seu nome!");
-                return;
-            }
+            // Switch to category selection panel
+            panelMenu.Visible = false;
+            panelCategorySelection.Visible = true;
+        }
 
-            playerName = txtPlayerName.Text;
-            selectedCategory = comboBoxCategory.SelectedItem.ToString();
+        private void BtnConfirmCategory_Click(object sender, EventArgs e)
+        {
 
-            // Initialize game
             score = 0;
             currentQuestionIndex = 0;
             currentGameQuestions = new List<Question>();
+            quizManager.ResetLevels();
 
-            // Load 5 random questions for level 1
             LoadNextLevel();
 
-            // Switch to game panel
-            panelMenu.Visible = false;
+            panelCategorySelection.Visible = false;
             panelGame.Visible = true;
 
             DisplayQuestion();
+        }
+
+        private void BtnBackFromCategory_Click(object sender, EventArgs e)
+        {
+            panelCategorySelection.Visible = false;
+            panelMenu.Visible = true;
         }
 
         private void LoadNextLevel()
@@ -90,6 +156,7 @@ namespace AtecQuiz
             if (currentQuestionIndex < currentGameQuestions.Count)
             {
                 currentQuestion = currentGameQuestions[currentQuestionIndex];
+                answerSubmitted = false;
                 selectedAnswerButton = null;
 
                 lblQuestion.Text = currentQuestion.Text;
@@ -144,6 +211,9 @@ namespace AtecQuiz
 
         private void BtnAnswer_Click(object sender, EventArgs e)
         {
+            if (answerSubmitted)
+                return;
+
             Button clickedButton = (Button)sender;
 
             // Remove previous selection highlighting
@@ -167,6 +237,8 @@ namespace AtecQuiz
                 MessageBox.Show("Por favor, selecione uma resposta!");
                 return;
             }
+
+            answerSubmitted = true;
 
             // Find which button was clicked
             Button[] buttons = { btnAnswer1, btnAnswer2, btnAnswer3, btnAnswer4 };
@@ -192,16 +264,16 @@ namespace AtecQuiz
             {
                 score++;
                 lblCorrectAnswerMessage.Text = "CORRETO!";
-                lblCorrectAnswerMessage.ForeColor = Color.FromArgb(46, 204, 113);
-                selectedAnswerButton.BackColor = Color.FromArgb(46, 204, 113);
+                lblCorrectAnswerMessage.ForeColor = Color.LimeGreen;
+                selectedAnswerButton.BackColor = Color.LimeGreen;
                 lblScore.Text = $"Respostas certas: {score}/5";
             }
             else
             {
                 lblCorrectAnswerMessage.Text = $"ERRADO! A resposta correta é:\n{currentQuestion.Answers[currentQuestion.CorrectAnswerIndex]}";
-                lblCorrectAnswerMessage.ForeColor = Color.FromArgb(231, 76, 60);
-                selectedAnswerButton.BackColor = Color.FromArgb(231, 76, 60);
-                buttons[currentQuestion.CorrectAnswerIndex].BackColor = Color.FromArgb(46, 204, 113);
+                lblCorrectAnswerMessage.ForeColor = Color.Red;
+                selectedAnswerButton.BackColor = Color.Red;
+                buttons[currentQuestion.CorrectAnswerIndex].BackColor = Color.LimeGreen;
             }
 
             btnNextQuestion.Visible = true;
@@ -219,8 +291,7 @@ namespace AtecQuiz
             if (score >= 4 && quizManager.GetCurrentLevel() < 3)
             {
                 // Player advances to next level
-                string message = $"Parabéns {playerName}!\n\nVocê conseguiu {score} respostas certas!\nAvançou para o Nível {quizManager.GetCurrentLevel() + 1}";
-                MessageBox.Show(message, "Nível Completo!");
+                MessageBox.Show($"Parabéns!\n\nVocê conseguiu {score} respostas certas!\nAvançou para o Nível {quizManager.GetCurrentLevel() + 1}", "Nível Completo!");
 
                 quizManager.NextLevel();
                 currentQuestionIndex = 0;
@@ -230,11 +301,12 @@ namespace AtecQuiz
             }
             else if (score >= 4 && quizManager.GetCurrentLevel() == 3)
             {
-                // Game completed successfully
-                string message = $"VITÓRIA!\n\nParabéns {playerName}!\nVocê completou o jogo com {score} respostas certas!\n\nPontuação final: {score} respostas certas";
-                MessageBox.Show(message, "Jogo Completo!");
-                highScoreManager.SaveHighScore(playerName, score);
-                ReturnToMenu();
+                // Game completed successfully - show win screen with name input
+                panelGame.Visible = false;
+                panelWinScreen.Visible = true;
+                lblFinalScore.Text = $"Pontuação final: {score} respostas certas";
+                txtPlayerName.Clear();
+                txtPlayerName.Focus();
             }
             else
             {
@@ -242,7 +314,6 @@ namespace AtecQuiz
                 // Game over - didn't pass this level
                 string message = $"Fim do Jogo!\n\nVocê conseguiu {score} respostas certas no Nível {quizManager.GetCurrentLevel()}.\nNecessário: 4 respostas certas para avançar.\n\nTente novamente!";
                 MessageBox.Show(message, "Game Over");
-                highScoreManager.SaveHighScore(playerName, score);
                 ReturnToMenu();
             }
         }
@@ -265,8 +336,23 @@ namespace AtecQuiz
         private void ReturnToMenu()
         {
             panelGame.Visible = false;
+            panelWinScreen.Visible = false;
+            panelCategorySelection.Visible = false;
             panelMenu.Visible = true;
-            comboBoxCategory.SelectedIndex = 0;
+        }
+
+        private void BtnSaveScore_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPlayerName.Text))
+            {
+                MessageBox.Show("Por favor, insira o seu nome!");
+                return;
+            }
+
+            playerName = txtPlayerName.Text;
+            highScoreManager.SaveHighScore(playerName, score);
+            MessageBox.Show($"Parabéns {playerName}!\nSua pontuação foi salva!", "Vitória!");
+            ReturnToMenu();
         }
 
         // Hover effects
@@ -296,7 +382,7 @@ namespace AtecQuiz
 
         private void BtnAnswer_MouseEnter(object sender, EventArgs e)
         {
-            if (selectedAnswerButton != (Button)sender)
+            if (!answerSubmitted && selectedAnswerButton != (Button)sender)
             {
                 ((Button)sender).BackColor = Color.FromArgb(127, 140, 141);
             }
@@ -304,11 +390,10 @@ namespace AtecQuiz
 
         private void BtnAnswer_MouseLeave(object sender, EventArgs e)
         {
-            if (selectedAnswerButton != (Button)sender)
+            if (!answerSubmitted && selectedAnswerButton != (Button)sender)
             {
                 ((Button)sender).BackColor = Color.FromArgb(149, 165, 166);
             }
         }
-
     }
 }

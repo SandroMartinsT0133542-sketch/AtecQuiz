@@ -101,8 +101,7 @@ namespace AtecQuiz
             if (highScores.Count == 0)
                 return "Sem pontuações registadas";
 
-            string display = "Top 10 Pontuações:\n";
-            display += "==================\n";
+            string display = "Top 10 Pontuações:\n==================\n";
 
             int position = 1;
             foreach (var entry in GetTopHighScores())

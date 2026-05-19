@@ -63,39 +63,19 @@ namespace AtecQuiz.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap quiz_bg {
+            get {
+                object obj = ResourceManager.GetObject("quiz_bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap quiz_ready {
             get {
                 object obj = ResourceManager.GetObject("quiz_ready", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap quiz_ready1 {
-            get {
-                object obj = ResourceManager.GetObject("quiz_ready1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap quiz_ready2 {
-            get {
-                object obj = ResourceManager.GetObject("quiz_ready2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap quiz_ready3 {
-            get {
-                object obj = ResourceManager.GetObject("quiz_ready3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
