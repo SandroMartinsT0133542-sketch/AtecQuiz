@@ -7,8 +7,8 @@ namespace AtecQuiz
 {
     public partial class Form1 : Form
     {
-        private QuizManager quizManager;
-        private HighScoreManager highScoreManager;
+        private readonly QuizManager quizManager;
+        private readonly HighScoreManager highScoreManager;
         private List<Question> currentGameQuestions;
         private int currentQuestionIndex;
         private int score;
@@ -49,7 +49,7 @@ namespace AtecQuiz
             comboBoxCategory.SelectedIndex = 0;
         }
 
-        private void btnStartGame_Click(object sender, EventArgs e)
+        private void BtnStartGame_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPlayerName.Text))
             {
@@ -77,7 +77,7 @@ namespace AtecQuiz
 
         private void LoadNextLevel()
         {
-            if (quizManager.getCurrentLevel() <= 3)
+            if (quizManager.GetCurrentLevel() <= 3)
             {
                 List<Question> levelQuestions = quizManager.GetRandomQuestions(selectedCategory, 5);
                 currentGameQuestions.Clear();
@@ -93,8 +93,8 @@ namespace AtecQuiz
                 selectedAnswerButton = null;
 
                 lblQuestion.Text = currentQuestion.Text;
-                lblScore.Text = $"Acertos: {score}/5";
-                lblLevel.Text = $"Nível: {quizManager.getCurrentLevel()}/3";
+                lblScore.Text = $"Respostas certas: {score}/5";
+                lblLevel.Text = $"Nível: {quizManager.GetCurrentLevel()}/3";
                 lblCategoryDisplay.Text = $"Categoria: {selectedCategory}";
                 lblRemainingTime.Text = $"Progresso: {currentQuestionIndex + 1}/5";
 
@@ -142,7 +142,7 @@ namespace AtecQuiz
             }
         }
 
-        private void btnAnswer_Click(object sender, EventArgs e)
+        private void BtnAnswer_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
 
@@ -194,7 +194,7 @@ namespace AtecQuiz
                 lblCorrectAnswerMessage.Text = "CORRETO!";
                 lblCorrectAnswerMessage.ForeColor = Color.FromArgb(46, 204, 113);
                 selectedAnswerButton.BackColor = Color.FromArgb(46, 204, 113);
-                lblScore.Text = $"Acertos: {score}/5";
+                lblScore.Text = $"Respostas certas: {score}/5";
             }
             else
             {
@@ -207,7 +207,7 @@ namespace AtecQuiz
             btnNextQuestion.Visible = true;
         }
 
-        private void btnNextQuestion_Click(object sender, EventArgs e)
+        private void BtnNextQuestion_Click(object sender, EventArgs e)
         {
             currentQuestionIndex++;
             DisplayQuestion();
@@ -216,44 +216,44 @@ namespace AtecQuiz
         private void EndLevel()
         {
             // Check if player progresses to next level
-            if (score >= 4 && quizManager.getCurrentLevel() < 3)
+            if (score >= 4 && quizManager.GetCurrentLevel() < 3)
             {
                 // Player advances to next level
-                string message = $"Parabéns {playerName}!\n\nVocê conseguiu {score} acertos!\nAvançou para o Nível {quizManager.getCurrentLevel() + 1}";
+                string message = $"Parabéns {playerName}!\n\nVocê conseguiu {score} respostas certas!\nAvançou para o Nível {quizManager.GetCurrentLevel() + 1}";
                 MessageBox.Show(message, "Nível Completo!");
 
-                quizManager.nextLevel();
+                quizManager.NextLevel();
                 currentQuestionIndex = 0;
                 score = 0;
                 LoadNextLevel();
                 DisplayQuestion();
             }
-            else if (score >= 4 && quizManager.getCurrentLevel() == 3)
+            else if (score >= 4 && quizManager.GetCurrentLevel() == 3)
             {
                 // Game completed successfully
-                string message = $"VITÓRIA!\n\nParabéns {playerName}!\nVocê completou o jogo com {score} acertos!\n\nPontuação final: {score} acertos";
+                string message = $"VITÓRIA!\n\nParabéns {playerName}!\nVocê completou o jogo com {score} respostas certas!\n\nPontuação final: {score} respostas certas";
                 MessageBox.Show(message, "Jogo Completo!");
                 highScoreManager.SaveHighScore(playerName, score);
                 ReturnToMenu();
             }
             else
             {
-                quizManager.resetLevels();
+                quizManager.ResetLevels();
                 // Game over - didn't pass this level
-                string message = $"Fim do Jogo!\n\nVocê conseguiu {score} acertos no Nível {quizManager.getCurrentLevel()}.\nNecessário: 4 acertos para avançar.\n\nTente novamente!";
+                string message = $"Fim do Jogo!\n\nVocê conseguiu {score} respostas certas no Nível {quizManager.GetCurrentLevel()}.\nNecessário: 4 respostas certas para avançar.\n\nTente novamente!";
                 MessageBox.Show(message, "Game Over");
                 highScoreManager.SaveHighScore(playerName, score);
                 ReturnToMenu();
             }
         }
 
-        private void btnViewScores_Click(object sender, EventArgs e)
+        private void BtnViewScores_Click(object sender, EventArgs e)
         {
             string scoresDisplay = highScoreManager.GetHighScoresDisplay();
             MessageBox.Show(scoresDisplay, "Pontuações Máximas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnMainMenu_Click(object sender, EventArgs e)
+        private void BtnMainMenu_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Tem a certeza que pretende regressar ao menu? Perderá o progresso!", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -270,31 +270,31 @@ namespace AtecQuiz
         }
 
         // Hover effects
-        private void btnStartGame_MouseEnter(object sender, EventArgs e)
+        private void BtnStartGame_MouseEnter(object sender, EventArgs e)
         {
             btnStartGame.BackColor = Color.FromArgb(39, 174, 96);
             btnStartGame.Font = new Font(btnStartGame.Font, FontStyle.Bold | FontStyle.Underline);
         }
 
-        private void btnStartGame_MouseLeave(object sender, EventArgs e)
+        private void BtnStartGame_MouseLeave(object sender, EventArgs e)
         {
             btnStartGame.BackColor = Color.FromArgb(46, 204, 113);
             btnStartGame.Font = new Font(btnStartGame.Font, FontStyle.Bold);
         }
 
-        private void btnViewScores_MouseEnter(object sender, EventArgs e)
+        private void BtnViewScores_MouseEnter(object sender, EventArgs e)
         {
             btnViewScores.BackColor = Color.FromArgb(41, 128, 185);
             btnViewScores.Font = new Font(btnViewScores.Font, FontStyle.Bold | FontStyle.Underline);
         }
 
-        private void btnViewScores_MouseLeave(object sender, EventArgs e)
+        private void BtnViewScores_MouseLeave(object sender, EventArgs e)
         {
             btnViewScores.BackColor = Color.FromArgb(52, 152, 219);
             btnViewScores.Font = new Font(btnViewScores.Font, FontStyle.Bold);
         }
 
-        private void btnAnswer_MouseEnter(object sender, EventArgs e)
+        private void BtnAnswer_MouseEnter(object sender, EventArgs e)
         {
             if (selectedAnswerButton != (Button)sender)
             {
@@ -302,7 +302,7 @@ namespace AtecQuiz
             }
         }
 
-        private void btnAnswer_MouseLeave(object sender, EventArgs e)
+        private void BtnAnswer_MouseLeave(object sender, EventArgs e)
         {
             if (selectedAnswerButton != (Button)sender)
             {
@@ -310,34 +310,5 @@ namespace AtecQuiz
             }
         }
 
-        private void lblCategoryDisplay_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblLevel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblQuestion_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelMenu_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

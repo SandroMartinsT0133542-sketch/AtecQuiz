@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace AtecQuiz
@@ -91,9 +92,9 @@ namespace AtecQuiz
             this.btnStartGame.TabIndex = 3;
             this.btnStartGame.Text = "Iniciar Jogo";
             this.btnStartGame.UseVisualStyleBackColor = false;
-            this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
-            this.btnStartGame.MouseEnter += new System.EventHandler(this.btnStartGame_MouseEnter);
-            this.btnStartGame.MouseLeave += new System.EventHandler(this.btnStartGame_MouseLeave);
+            this.btnStartGame.Click += new System.EventHandler(this.BtnStartGame_Click);
+            this.btnStartGame.MouseEnter += new System.EventHandler(this.BtnStartGame_MouseEnter);
+            this.btnStartGame.MouseLeave += new System.EventHandler(this.BtnStartGame_MouseLeave);
             // 
             // btnViewScores
             // 
@@ -106,9 +107,9 @@ namespace AtecQuiz
             this.btnViewScores.TabIndex = 4;
             this.btnViewScores.Text = "Ver Pontuações";
             this.btnViewScores.UseVisualStyleBackColor = false;
-            this.btnViewScores.Click += new System.EventHandler(this.btnViewScores_Click);
-            this.btnViewScores.MouseEnter += new System.EventHandler(this.btnViewScores_MouseEnter);
-            this.btnViewScores.MouseLeave += new System.EventHandler(this.btnViewScores_MouseLeave);
+            this.btnViewScores.Click += new System.EventHandler(this.BtnViewScores_Click);
+            this.btnViewScores.MouseEnter += new System.EventHandler(this.BtnViewScores_MouseEnter);
+            this.btnViewScores.MouseLeave += new System.EventHandler(this.BtnViewScores_MouseLeave);
             // 
             // lblQuestion
             // 
@@ -120,7 +121,6 @@ namespace AtecQuiz
             this.lblQuestion.Size = new System.Drawing.Size(700, 130);
             this.lblQuestion.TabIndex = 7;
             this.lblQuestion.Text = "Pergunta?";
-            this.lblQuestion.Click += new System.EventHandler(this.lblQuestion_Click);
             // 
             // btnAnswer1
             // 
@@ -133,9 +133,9 @@ namespace AtecQuiz
             this.btnAnswer1.TabIndex = 8;
             this.btnAnswer1.Text = "A) Resposta 1";
             this.btnAnswer1.UseVisualStyleBackColor = false;
-            this.btnAnswer1.Click += new System.EventHandler(this.btnAnswer_Click);
-            this.btnAnswer1.MouseEnter += new System.EventHandler(this.btnAnswer_MouseEnter);
-            this.btnAnswer1.MouseLeave += new System.EventHandler(this.btnAnswer_MouseLeave);
+            this.btnAnswer1.Click += new System.EventHandler(this.BtnAnswer_Click);
+            this.btnAnswer1.MouseEnter += new System.EventHandler(this.BtnAnswer_MouseEnter);
+            this.btnAnswer1.MouseLeave += new System.EventHandler(this.BtnAnswer_MouseLeave);
             // 
             // btnAnswer2
             // 
@@ -148,9 +148,9 @@ namespace AtecQuiz
             this.btnAnswer2.TabIndex = 9;
             this.btnAnswer2.Text = "B) Resposta 2";
             this.btnAnswer2.UseVisualStyleBackColor = false;
-            this.btnAnswer2.Click += new System.EventHandler(this.btnAnswer_Click);
-            this.btnAnswer2.MouseEnter += new System.EventHandler(this.btnAnswer_MouseEnter);
-            this.btnAnswer2.MouseLeave += new System.EventHandler(this.btnAnswer_MouseLeave);
+            this.btnAnswer2.Click += new System.EventHandler(this.BtnAnswer_Click);
+            this.btnAnswer2.MouseEnter += new System.EventHandler(this.BtnAnswer_MouseEnter);
+            this.btnAnswer2.MouseLeave += new System.EventHandler(this.BtnAnswer_MouseLeave);
             // 
             // btnAnswer3
             // 
@@ -163,9 +163,9 @@ namespace AtecQuiz
             this.btnAnswer3.TabIndex = 10;
             this.btnAnswer3.Text = "C) Resposta 3";
             this.btnAnswer3.UseVisualStyleBackColor = false;
-            this.btnAnswer3.Click += new System.EventHandler(this.btnAnswer_Click);
-            this.btnAnswer3.MouseEnter += new System.EventHandler(this.btnAnswer_MouseEnter);
-            this.btnAnswer3.MouseLeave += new System.EventHandler(this.btnAnswer_MouseLeave);
+            this.btnAnswer3.Click += new System.EventHandler(this.BtnAnswer_Click);
+            this.btnAnswer3.MouseEnter += new System.EventHandler(this.BtnAnswer_MouseEnter);
+            this.btnAnswer3.MouseLeave += new System.EventHandler(this.BtnAnswer_MouseLeave);
             // 
             // btnAnswer4
             // 
@@ -179,9 +179,9 @@ namespace AtecQuiz
             this.btnAnswer4.Text = "D) Resposta 4";
             this.btnAnswer4.UseVisualStyleBackColor = false;
             this.btnAnswer4.Visible = false;
-            this.btnAnswer4.Click += new System.EventHandler(this.btnAnswer_Click);
-            this.btnAnswer4.MouseEnter += new System.EventHandler(this.btnAnswer_MouseEnter);
-            this.btnAnswer4.MouseLeave += new System.EventHandler(this.btnAnswer_MouseLeave);
+            this.btnAnswer4.Click += new System.EventHandler(this.BtnAnswer_Click);
+            this.btnAnswer4.MouseEnter += new System.EventHandler(this.BtnAnswer_MouseEnter);
+            this.btnAnswer4.MouseLeave += new System.EventHandler(this.BtnAnswer_MouseLeave);
             // 
             // lblScore
             // 
@@ -189,11 +189,11 @@ namespace AtecQuiz
             this.lblScore.BackColor = System.Drawing.Color.Transparent;
             this.lblScore.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
             this.lblScore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.lblScore.Location = new System.Drawing.Point(877, 323);
+            this.lblScore.Location = new System.Drawing.Point(916, 733);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(134, 26);
+            this.lblScore.Size = new System.Drawing.Size(233, 26);
             this.lblScore.TabIndex = 15;
-            this.lblScore.Text = "Acertos: 0/5";
+            this.lblScore.Text = "Respostas certas: 0/5";
             // 
             // lblLevel
             // 
@@ -206,7 +206,6 @@ namespace AtecQuiz
             this.lblLevel.Size = new System.Drawing.Size(107, 26);
             this.lblLevel.TabIndex = 16;
             this.lblLevel.Text = "Nível: 1/3";
-            this.lblLevel.Click += new System.EventHandler(this.lblLevel_Click);
             // 
             // panelMenu
             // 
@@ -223,7 +222,6 @@ namespace AtecQuiz
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(1161, 768);
             this.panelMenu.TabIndex = 19;
-            this.panelMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMenu_Paint);
             // 
             // label1
             // 
@@ -236,7 +234,6 @@ namespace AtecQuiz
             this.label1.TabIndex = 7;
             this.label1.Text = "ATECQuiZ\r\nJogo da Sabedoria";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblPlayerName
             // 
@@ -291,7 +288,7 @@ namespace AtecQuiz
             this.btnMainMenu.TabIndex = 14;
             this.btnMainMenu.Text = "<<";
             this.btnMainMenu.UseVisualStyleBackColor = false;
-            this.btnMainMenu.Click += new System.EventHandler(this.btnMainMenu_Click);
+            this.btnMainMenu.Click += new System.EventHandler(this.BtnMainMenu_Click);
             // 
             // lblCategoryDisplay
             // 
@@ -304,7 +301,6 @@ namespace AtecQuiz
             this.lblCategoryDisplay.Size = new System.Drawing.Size(157, 26);
             this.lblCategoryDisplay.TabIndex = 18;
             this.lblCategoryDisplay.Text = "Categoria: Mix";
-            this.lblCategoryDisplay.Click += new System.EventHandler(this.lblCategoryDisplay_Click);
             // 
             // progressBar
             // 
@@ -340,10 +336,11 @@ namespace AtecQuiz
             this.btnNextQuestion.Text = "Próxima Pergunta";
             this.btnNextQuestion.UseVisualStyleBackColor = false;
             this.btnNextQuestion.Visible = false;
-            this.btnNextQuestion.Click += new System.EventHandler(this.btnNextQuestion_Click);
+            this.btnNextQuestion.Click += new System.EventHandler(this.BtnNextQuestion_Click);
             // 
             // lblCorrectAnswerMessage
             // 
+            this.lblCorrectAnswerMessage.Parent = this.panelGame;
             this.lblCorrectAnswerMessage.BackColor = System.Drawing.Color.Transparent;
             this.lblCorrectAnswerMessage.Font = new System.Drawing.Font("Arial", 13F, System.Drawing.FontStyle.Bold);
             this.lblCorrectAnswerMessage.Location = new System.Drawing.Point(311, 12);
@@ -362,7 +359,6 @@ namespace AtecQuiz
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // Form1
             // 

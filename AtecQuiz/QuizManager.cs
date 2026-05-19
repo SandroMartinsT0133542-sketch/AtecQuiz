@@ -17,8 +17,8 @@ namespace AtecQuiz
 {
     public class QuizManager
     {
-        private List<Question> allQuestions;
-        private Random random;
+        private readonly List<Question> allQuestions;
+        private readonly Random random;
         private int currentLevel = 1;
 
         public QuizManager()
@@ -32,14 +32,13 @@ namespace AtecQuiz
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filePath);
 
-            // Seleciona todos os nós de pergunta
             XmlNodeList questionNodes = xmlDoc.SelectNodes("/quiz/questions/category/level/question");
 
             foreach (XmlNode questionNode in questionNodes)
             {
                 Question question = new Question();
 
-                question.setQuestionAttributes(
+                question.SetQuestionAttributes(
                     int.Parse(questionNode.Attributes["id"].Value),
                     questionNode.ParentNode.ParentNode.Attributes["name"].Value,
                     int.Parse(questionNode.ParentNode.Attributes["number"].Value),
@@ -56,7 +55,7 @@ namespace AtecQuiz
                     if (answerNodes[i].Attributes["correct"] != null &&
                         bool.Parse(answerNodes[i].Attributes["correct"].Value))
                     {
-                        question.setCorrectAnswerIndex(i);
+                        question.SetCorrectAnswerIndex(i);
                     }
                 }
 
@@ -92,18 +91,18 @@ namespace AtecQuiz
         }
 
 
-        public void nextLevel()
+        public void NextLevel()
         {
             if (currentLevel < 3)
                 this.currentLevel++;
         }
 
-        public void resetLevels()
+        public void ResetLevels()
         {
             this.currentLevel = 1;
         }
 
-        public int getCurrentLevel()
+        public int GetCurrentLevel()
         {
             return this.currentLevel;
         }

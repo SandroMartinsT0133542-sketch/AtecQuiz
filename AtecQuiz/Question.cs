@@ -16,7 +16,7 @@ namespace AtecQuiz
             Answers = new List<string>();
         }
 
-        public void setQuestionAttributes(int id, string category, int level, string text, List<string> answers)
+        public void SetQuestionAttributes(int id, string category, int level, string text, List<string> answers)
         {
             Id = id;
             Category = category;
@@ -25,7 +25,7 @@ namespace AtecQuiz
             Answers = answers;
         }
 
-        public void setCorrectAnswerIndex(int index)
+        public void SetCorrectAnswerIndex(int index)
         {
             CorrectAnswerIndex = index;
         }
