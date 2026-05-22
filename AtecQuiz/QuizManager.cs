@@ -3,16 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
-// Estrutura do XML de perguntas
-//quiz
-// └── questions
-//      └── category (name="Desporto / História / Cinema")
-//           └── level (number="1 / 2 / 3")
-//                └── question (id="1..10")
-//                     ├── text
-//                     └── answers
-//                          └── answer (correct="true" na correta)
-
 namespace AtecQuiz
 {
     public class QuizManager
@@ -38,25 +28,33 @@ namespace AtecQuiz
             {
                 Question question = new Question();
 
+                XmlNodeList answerNodes = questionNode.SelectNodes("answers/answer");
+                List<string> answers = new List<string>();
+                string correctAnswerText = null;
+
+                for (int i = 0; i < answerNodes.Count; i++)
+                {
+                    answers.Add(answerNodes[i].InnerText);
+
+                    if (answerNodes[i].Attributes["correct"] != null &&
+                        bool.Parse(answerNodes[i].Attributes["correct"].Value))
+                    {
+                        correctAnswerText = answerNodes[i].InnerText;
+                    }
+                }
+
                 question.SetQuestionAttributes(
                     int.Parse(questionNode.Attributes["id"].Value),
                     questionNode.ParentNode.ParentNode.Attributes["name"].Value,
                     int.Parse(questionNode.ParentNode.Attributes["number"].Value),
                     questionNode.SelectSingleNode("text").InnerText,
-                    questionNode.SelectNodes("answers/answer").Cast<XmlNode>().Select(a => a.InnerText).ToList()
+                    answers
                 );
 
-                XmlNodeList answerNodes = questionNode.SelectNodes("answers/answer");
-
-                for (int i = 0; i < answerNodes.Count; i++)
+                // Set correct answer AFTER SetQuestionAttributes
+                if (correctAnswerText != null)
                 {
-                    question.Answers.Add(answerNodes[i].InnerText);
-
-                    if (answerNodes[i].Attributes["correct"] != null &&
-                        bool.Parse(answerNodes[i].Attributes["correct"].Value))
-                    {
-                        question.SetCorrectAnswerIndex(i);
-                    }
+                    question.SetCorrectAnswer(correctAnswerText);
                 }
 
                 allQuestions.Add(question);
@@ -81,6 +79,12 @@ namespace AtecQuiz
                 .OrderBy(q => random.Next())
                 .Take(count)
                 .ToList();
+
+            // Randomize answers
+            foreach (var question in filteredQuestions)
+            {
+                question.RandomizeAnswers(random);
+            }
 
             return filteredQuestions;
         }

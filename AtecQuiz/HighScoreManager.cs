@@ -99,14 +99,14 @@ namespace AtecQuiz
         public string GetHighScoresDisplay()
         {
             if (highScores.Count == 0)
-                return "Sem pontuações registadas";
+                return "Sem classificações registadas";
 
-            string display = "Top 10 Pontuações:\n==================\n";
+            string display = "Top 10 Classificações:\n=====================\n";
 
             int position = 1;
             foreach (var entry in GetTopHighScores())
             {
-                display += $"{position}. {entry.PlayerName}: {entry.Score} respostas certas\n";
+                display += $"{position}. {entry.PlayerName}: {entry.Score} respostas correctas\n";
                 position++;
             }
 

@@ -2,7 +2,7 @@
 
 A Windows Forms quiz application built with .NET Framework 4.7.2. AtecQuiz is an interactive knowledge-testing game that challenges players with questions across multiple categories and difficulty levels.
 
-## ?? Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [System Requirements](#system-requirements)
@@ -14,7 +14,7 @@ A Windows Forms quiz application built with .NET Framework 4.7.2. AtecQuiz is an
 - [Usage Guide](#usage-guide)
 - [Technical Stack](#technical-stack)
 
-## ? Features
+## Features
 
 - **Multiple Categories**: Quiz questions organized by categories (Mix, Desporto, Cinema, História, etc.)
 - **Level-Based Difficulty**: 3 progressive difficulty levels (1, 2, 3)
@@ -25,7 +25,7 @@ A Windows Forms quiz application built with .NET Framework 4.7.2. AtecQuiz is an
 - **Win Screen**: Final score display and score saving functionality
 - **Responsive UI**: Clean, modern interface with color-coded buttons and status indicators
 
-## ??? System Requirements
+## System Requirements
 
 - **Operating System**: Windows 7 or later
 - **.NET Framework**: 4.7.2
@@ -33,7 +33,7 @@ A Windows Forms quiz application built with .NET Framework 4.7.2. AtecQuiz is an
 - **Disk Space**: 50 MB for application and data files
 - **Display**: 1024x768 minimum resolution
 
-## ?? Installation
+## Installation
 
 1. **Clone the Repository**:
    ```bash
@@ -54,7 +54,7 @@ A Windows Forms quiz application built with .NET Framework 4.7.2. AtecQuiz is an
    - Ensure `quiz.xml` is in the application's working directory
    - Place `highscores.txt` in the same directory (will be created automatically on first save)
 
-## ?? Application Workflow
+## Application Workflow
 
 ### 1. **Main Menu Screen**
    - Display: Application title and welcome message
@@ -94,27 +94,27 @@ A Windows Forms quiz application built with .NET Framework 4.7.2. AtecQuiz is an
    - **Save Button**: Saves the score to `highscores.txt`
    - Automatic return to main menu after score save
 
-## ?? Project Structure
+## Project Structure
 
 ```
 AtecQuiz/
-??? AtecQuiz.csproj                 # Project configuration
-??? Program.cs                      # Application entry point
-??? Form1.cs                        # Main form logic and event handlers
-??? Form1.Designer.cs               # UI layout and control definitions
-??? QuizManager.cs                  # Quiz data loading and management
-??? Question.cs                     # Question data model
-??? HighScoreManager.cs             # Score persistence
-??? Properties/
-?   ??? AssemblyInfo.cs
-?   ??? Resources.Designer.cs       # Embedded images (quiz_bg, quiz_ready)
-?   ??? Settings.Designer.cs
-??? quiz.xml                        # Quiz questions data file
-??? highscores.txt                  # High scores storage (auto-created)
-??? README.md                       # This file
+ AtecQuiz.csproj                 # Project configuration
+ Program.cs                      # Application entry point
+ Form1.cs                        # Main form logic and event handlers
+ Form1.Designer.cs               # UI layout and control definitions
+ QuizManager.cs                  # Quiz data loading and management
+ Question.cs                     # Question data model
+ HighScoreManager.cs             # Score persistence
+ Properties/
+    AssemblyInfo.cs
+    Resources.Designer.cs        # Embedded images (quiz_bg, quiz_ready)
+    Settings.Designer.cs
+ quiz.xml                        # Quiz questions data file
+ highscores.txt                  # High scores storage (auto-created)
+ README.md                       # This file
 ```
 
-## ?? Key Components
+## Key Components
 
 ### **Program.cs**
 - Application entry point
@@ -149,7 +149,7 @@ AtecQuiz/
 - Maintains persistent score history
 - HighScoreEntry structure: PlayerName | Score | Date
 
-## ?? Quiz Data Format
+## Quiz Data Format
 
 The `quiz.xml` file follows this hierarchical structure:
 
@@ -188,7 +188,7 @@ The `quiz.xml` file follows this hierarchical structure:
 - `question id`: Unique identifier
 - `answer correct`: Boolean indicating correct answer
 
-## ?? Usage Guide
+## Usage Guide
 
 ### **Playing the Quiz**
 

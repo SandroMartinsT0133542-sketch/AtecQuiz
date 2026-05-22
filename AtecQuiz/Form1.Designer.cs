@@ -69,9 +69,9 @@ namespace AtecQuiz
             this.panelMenu.SuspendLayout();
             this.panelGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCategoryBg)).BeginInit();
             this.panelCategorySelection.SuspendLayout();
             this.panelWinScreen.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCategoryBg)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCategory
@@ -129,7 +129,7 @@ namespace AtecQuiz
             this.lblQuestion.BackColor = System.Drawing.Color.Transparent;
             this.lblQuestion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblQuestion.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold);
-            this.lblQuestion.Location = new System.Drawing.Point(311, 164);
+            this.lblQuestion.Location = new System.Drawing.Point(311, 177);
             this.lblQuestion.Name = "lblQuestion";
             this.lblQuestion.Padding = new System.Windows.Forms.Padding(10);
             this.lblQuestion.Size = new System.Drawing.Size(700, 130);
@@ -203,7 +203,7 @@ namespace AtecQuiz
             this.lblScore.BackColor = System.Drawing.Color.Transparent;
             this.lblScore.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
             this.lblScore.ForeColor = System.Drawing.Color.LimeGreen;
-            this.lblScore.Location = new System.Drawing.Point(916, 733);
+            this.lblScore.Location = new System.Drawing.Point(474, 140);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(233, 26);
             this.lblScore.TabIndex = 15;
@@ -215,7 +215,7 @@ namespace AtecQuiz
             this.lblLevel.BackColor = System.Drawing.Color.Transparent;
             this.lblLevel.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
             this.lblLevel.ForeColor = System.Drawing.Color.Plum;
-            this.lblLevel.Location = new System.Drawing.Point(749, 120);
+            this.lblLevel.Location = new System.Drawing.Point(272, 637);
             this.lblLevel.Name = "lblLevel";
             this.lblLevel.Size = new System.Drawing.Size(107, 26);
             this.lblLevel.TabIndex = 16;
@@ -306,7 +306,7 @@ namespace AtecQuiz
             this.lblCategoryDisplay.BackColor = System.Drawing.Color.Transparent;
             this.lblCategoryDisplay.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold);
             this.lblCategoryDisplay.ForeColor = System.Drawing.Color.Orange;
-            this.lblCategoryDisplay.Location = new System.Drawing.Point(313, 87);
+            this.lblCategoryDisplay.Location = new System.Drawing.Point(393, 637);
             this.lblCategoryDisplay.Name = "lblCategoryDisplay";
             this.lblCategoryDisplay.Size = new System.Drawing.Size(157, 26);
             this.lblCategoryDisplay.TabIndex = 18;
@@ -328,7 +328,7 @@ namespace AtecQuiz
             this.lblRemainingTime.BackColor = System.Drawing.Color.Transparent;
             this.lblRemainingTime.Font = new System.Drawing.Font("Arial", 16F);
             this.lblRemainingTime.ForeColor = System.Drawing.Color.Gray;
-            this.lblRemainingTime.Location = new System.Drawing.Point(192, 324);
+            this.lblRemainingTime.Location = new System.Drawing.Point(313, 141);
             this.lblRemainingTime.Name = "lblRemainingTime";
             this.lblRemainingTime.Size = new System.Drawing.Size(155, 25);
             this.lblRemainingTime.TabIndex = 20;
@@ -352,9 +352,9 @@ namespace AtecQuiz
             // 
             this.lblCorrectAnswerMessage.BackColor = System.Drawing.Color.Transparent;
             this.lblCorrectAnswerMessage.Font = new System.Drawing.Font("Arial", 13F, System.Drawing.FontStyle.Bold);
-            this.lblCorrectAnswerMessage.Location = new System.Drawing.Point(355, 323);
+            this.lblCorrectAnswerMessage.Location = new System.Drawing.Point(197, 324);
             this.lblCorrectAnswerMessage.Name = "lblCorrectAnswerMessage";
-            this.lblCorrectAnswerMessage.Size = new System.Drawing.Size(575, 61);
+            this.lblCorrectAnswerMessage.Size = new System.Drawing.Size(814, 61);
             this.lblCorrectAnswerMessage.TabIndex = 18;
             this.lblCorrectAnswerMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -425,24 +425,11 @@ namespace AtecQuiz
             // 
             // flowLayoutPanelCategories
             // 
-            this.flowLayoutPanelCategories.AutoScroll = false;
             this.flowLayoutPanelCategories.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanelCategories.Location = new System.Drawing.Point(200, 100);
             this.flowLayoutPanelCategories.Name = "flowLayoutPanelCategories";
             this.flowLayoutPanelCategories.Size = new System.Drawing.Size(770, 480);
             this.flowLayoutPanelCategories.TabIndex = 8;
-            // 
-            // pictureBoxCategoryBg
-            // 
-            this.pictureBoxCategoryBg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxCategoryBg.ErrorImage = null;
-            this.pictureBoxCategoryBg.Image = AtecQuiz.Properties.Resources.quiz_ready;
-            this.pictureBoxCategoryBg.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxCategoryBg.Name = "pictureBoxCategoryBg";
-            this.pictureBoxCategoryBg.Size = new System.Drawing.Size(1171, 768);
-            this.pictureBoxCategoryBg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxCategoryBg.TabIndex = 10;
-            this.pictureBoxCategoryBg.TabStop = false;
             // 
             // panelWinScreen
             // 
@@ -482,6 +469,18 @@ namespace AtecQuiz
             this.lblFinalScore.Text = "Pontuação final: 15 respostas certas";
             this.lblFinalScore.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // pictureBoxCategoryBg
+            // 
+            this.pictureBoxCategoryBg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxCategoryBg.ErrorImage = null;
+            this.pictureBoxCategoryBg.Image = global::AtecQuiz.Properties.Resources.quiz_ready;
+            this.pictureBoxCategoryBg.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxCategoryBg.Name = "pictureBoxCategoryBg";
+            this.pictureBoxCategoryBg.Size = new System.Drawing.Size(1171, 768);
+            this.pictureBoxCategoryBg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxCategoryBg.TabIndex = 10;
+            this.pictureBoxCategoryBg.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -500,11 +499,11 @@ namespace AtecQuiz
             this.panelGame.ResumeLayout(false);
             this.panelGame.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCategoryBg)).EndInit();
             this.panelCategorySelection.ResumeLayout(false);
             this.panelCategorySelection.PerformLayout();
             this.panelWinScreen.ResumeLayout(false);
             this.panelWinScreen.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCategoryBg)).EndInit();
             this.ResumeLayout(false);
 
         }

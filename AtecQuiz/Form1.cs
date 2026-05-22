@@ -35,7 +35,7 @@ namespace AtecQuiz
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar perguntas: " + ex.Message);
+                MessageBox.Show("Erro ao carregar questões: " + ex.Message);
             }
         }
 
@@ -54,17 +54,19 @@ namespace AtecQuiz
 
         private void CreateCategoryButton(string categoryName)
         {
-            Button btn = new Button();
-            btn.Text = categoryName;
-            btn.Width = 300;
-            btn.Height = 80;
-            btn.Font = new Font("Arial", 14F, FontStyle.Bold);
-            btn.BackColor = Color.RoyalBlue;
-            btn.ForeColor = Color.White;
-            btn.Margin = new Padding(15);
-            btn.Tag = categoryName;
-            btn.AutoSize = false;
-            btn.TextAlign = ContentAlignment.MiddleCenter;
+            Button btn = new Button
+            {
+                Text = categoryName,
+                Width = 300,
+                Height = 80,
+                Font = new Font("Arial", 14F, FontStyle.Bold),
+                BackColor = Color.RoyalBlue,
+                ForeColor = Color.White,
+                Margin = new Padding(15),
+                Tag = categoryName,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
             btn.Click += CategoryButton_Click;
             btn.MouseEnter += CategoryButton_MouseEnter;
             btn.MouseLeave += CategoryButton_MouseLeave;
@@ -160,7 +162,7 @@ namespace AtecQuiz
                 selectedAnswerButton = null;
 
                 lblQuestion.Text = currentQuestion.Text;
-                lblScore.Text = $"Respostas certas: {score}/5";
+                lblScore.Text = $"Respostas correctas: {score}/5";
                 lblLevel.Text = $"Nível: {quizManager.GetCurrentLevel()}/3";
                 lblCategoryDisplay.Text = $"Categoria: {selectedCategory}";
                 lblRemainingTime.Text = $"Progresso: {currentQuestionIndex + 1}/5";
@@ -234,7 +236,7 @@ namespace AtecQuiz
         {
             if (selectedAnswerButton == null)
             {
-                MessageBox.Show("Por favor, selecione uma resposta!");
+                MessageBox.Show("Por favor, seleccione uma resposta!");
                 return;
             }
 
@@ -263,17 +265,22 @@ namespace AtecQuiz
             if (selectedAnswer == currentQuestion.CorrectAnswerIndex)
             {
                 score++;
-                lblCorrectAnswerMessage.Text = "CORRETO!";
+                lblCorrectAnswerMessage.Text = "CORRECTO!";
                 lblCorrectAnswerMessage.ForeColor = Color.LimeGreen;
                 selectedAnswerButton.BackColor = Color.LimeGreen;
-                lblScore.Text = $"Respostas certas: {score}/5";
+                lblScore.Text = $"Respostas correctas: {score}/5";
             }
             else
             {
-                lblCorrectAnswerMessage.Text = $"ERRADO! A resposta correta é:\n{currentQuestion.Answers[currentQuestion.CorrectAnswerIndex]}";
+                lblCorrectAnswerMessage.Text = $"INCORRECTO! A resposta correcta é:\n{currentQuestion.Answers[currentQuestion.CorrectAnswerIndex]}";
                 lblCorrectAnswerMessage.ForeColor = Color.Red;
                 selectedAnswerButton.BackColor = Color.Red;
-                buttons[currentQuestion.CorrectAnswerIndex].BackColor = Color.LimeGreen;
+                // prevent index out of range if correct answer index is invalid
+                if (currentQuestion.CorrectAnswerIndex >= 0 &&
+                    currentQuestion.CorrectAnswerIndex < buttons.Length)
+                {
+                    buttons[currentQuestion.CorrectAnswerIndex].BackColor = Color.LimeGreen;
+                }
             }
 
             btnNextQuestion.Visible = true;
@@ -291,7 +298,7 @@ namespace AtecQuiz
             if (score >= 4 && quizManager.GetCurrentLevel() < 3)
             {
                 // Player advances to next level
-                MessageBox.Show($"Parabéns!\n\nVocê conseguiu {score} respostas certas!\nAvançou para o Nível {quizManager.GetCurrentLevel() + 1}", "Nível Completo!");
+                MessageBox.Show($"Parabéns!\n\nConseguiu {score} respostas correctas!\nAvançou para o Nível {quizManager.GetCurrentLevel() + 1}", "Nível Completo!");
 
                 quizManager.NextLevel();
                 currentQuestionIndex = 0;
@@ -304,7 +311,7 @@ namespace AtecQuiz
                 // Game completed successfully - show win screen with name input
                 panelGame.Visible = false;
                 panelWinScreen.Visible = true;
-                lblFinalScore.Text = $"Pontuação final: {score} respostas certas";
+                lblFinalScore.Text = $"Pontuação final: {score} respostas correctas";
                 txtPlayerName.Clear();
                 txtPlayerName.Focus();
             }
@@ -312,7 +319,7 @@ namespace AtecQuiz
             {
                 quizManager.ResetLevels();
                 // Game over - didn't pass this level
-                string message = $"Fim do Jogo!\n\nVocê conseguiu {score} respostas certas no Nível {quizManager.GetCurrentLevel()}.\nNecessário: 4 respostas certas para avançar.\n\nTente novamente!";
+                string message = $"Fim do Jogo!\n\nConseguiu {score} respostas correctas no Nível {quizManager.GetCurrentLevel()}.\nNecessário: 4 respostas correctas para avançar.\n\nTente novamente!";
                 MessageBox.Show(message, "Game Over");
                 ReturnToMenu();
             }
@@ -321,12 +328,12 @@ namespace AtecQuiz
         private void BtnViewScores_Click(object sender, EventArgs e)
         {
             string scoresDisplay = highScoreManager.GetHighScoresDisplay();
-            MessageBox.Show(scoresDisplay, "Pontuações Máximas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(scoresDisplay, "Classificações Máximas", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnMainMenu_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Tem a certeza que pretende regressar ao menu? Perderá o progresso!", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Tem a certeza que quer regressar ao menu? Vai perder o progresso!", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 ReturnToMenu();
@@ -345,13 +352,13 @@ namespace AtecQuiz
         {
             if (string.IsNullOrWhiteSpace(txtPlayerName.Text))
             {
-                MessageBox.Show("Por favor, insira o seu nome!");
+                MessageBox.Show("Por favor, introduza o seu nome!");
                 return;
             }
 
             playerName = txtPlayerName.Text;
             highScoreManager.SaveHighScore(playerName, score);
-            MessageBox.Show($"Parabéns {playerName}!\nSua pontuação foi salva!", "Vitória!");
+            MessageBox.Show($"Parabéns {playerName}!\nClassificação guardada!", "Vitória!");
             ReturnToMenu();
         }
 
@@ -395,5 +402,7 @@ namespace AtecQuiz
                 ((Button)sender).BackColor = Color.FromArgb(149, 165, 166);
             }
         }
+
+
     }
 }
