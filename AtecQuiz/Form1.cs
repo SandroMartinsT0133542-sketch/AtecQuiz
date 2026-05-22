@@ -317,10 +317,10 @@ namespace AtecQuiz
             }
             else
             {
-                quizManager.ResetLevels();
                 // Game over - didn't pass this level
                 string message = $"Fim do Jogo!\n\nConseguiu {score} respostas correctas no Nível {quizManager.GetCurrentLevel()}.\nNecessário: 4 respostas correctas para avançar.\n\nTente novamente!";
                 MessageBox.Show(message, "Game Over");
+                quizManager.ResetLevels();
                 ReturnToMenu();
             }
         }
